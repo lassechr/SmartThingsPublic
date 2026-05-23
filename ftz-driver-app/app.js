@@ -17,13 +17,18 @@ const state = {
 };
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded', () => {
+function init() {
   renderCategories();
   bindNav();
   bindSearch();
   bindQuickActions();
   bindBackButtons();
-});
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 
 // ===== RENDER CATEGORIES =====
 function renderCategories() {
