@@ -1,10 +1,18 @@
 // FTZ Chaufførvejledning - App Logic
 
+function loadFavorites() {
+  try { return JSON.parse(localStorage.getItem('ftz_favorites') || '[]'); }
+  catch(e) { return []; }
+}
+function saveFavorites(favs) {
+  try { localStorage.setItem('ftz_favorites', JSON.stringify(favs)); } catch(e) {}
+}
+
 const state = {
   currentView: 'home',
   currentCategory: null,
   currentArticle: null,
-  favorites: JSON.parse(localStorage.getItem('ftz_favorites') || '[]'),
+  favorites: loadFavorites(),
   searchOpen: false,
 };
 
@@ -113,7 +121,7 @@ function toggleFavorite(e) {
     e.currentTarget.classList.add('active');
     e.currentTarget.textContent = '❤️ Fjern fra favoritter';
   }
-  localStorage.setItem('ftz_favorites', JSON.stringify(state.favorites));
+  saveFavorites(state.favorites);
 }
 
 // ===== SWITCH VIEW =====
